@@ -1,0 +1,50 @@
+/******************************************************************************/
+/*                                                                            */
+/* main.c -- Example program using the PmodCOLOR IP                           */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arthur Brown                                                       */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This demo prints RGB color information collected from the                  */
+/* PmodCOLOR when requested, note that typical baud rate is 115200            */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    10/10/2017(artvvb): Created                                             */
+/*                                                                            */
+/******************************************************************************/
+
+#include "xparameters.h"
+#include "xil_cache.h"
+#include "PmodCOLOR.h"
+#include "sleep.h"
+#include "xuartps.h"
+#include "xil_printf.h"
+
+typedef struct {
+	COLOR_Data min, max;
+} CalibrationData;
+
+void DemoInitialize();
+void DemoRun();
+CalibrationData DemoInitCalibrationData(COLOR_Data firstSample);
+void DemoCalibrate(COLOR_Data newSample, CalibrationData *calib);
+COLOR_Data DemoNormalizeToCalibration(COLOR_Data sample, CalibrationData calib);
+void EnableCaches();
+void DisableCaches();
+
+PmodCOLOR myDevice; // Pmod COLOR driver device
+XUartPs sys; // Zynq PS UART driver device
+
+int main(void)
+{
+	//DemoInitialize();
+	DemoRun();
+	xil_printf("kevin says start: 1\r\n");
+	return 0;
+}
+
